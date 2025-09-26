@@ -1,335 +1,11 @@
 {
   "info": {
-    "name": "YouTube API Collection",
+    "name": "c21 API Collection",
     "_postman_id": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
-    "description": "Collection of YouTube APIs (channels, videos, playlists, subscriptions, comments, history, auth).",
+    "description": "Collection of c21 APIs (Authentication + Tasks).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
-    {
-      "name": "Channels",
-      "item": [
-        {
-          "name": "Get or Create Channel",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/channels/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "channels"]
-            }
-          }
-        },
-        {
-          "name": "Update Channel",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/channels/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "channels"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Arjun Tech\",\n  \"description\": \"Coding tutorials\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Upload Channel Image",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/channels/upload/{{type}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "channels", "upload", "{{type}}"]
-            },
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                { "key": "image", "type": "file" }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Subscribe / Unsubscribe Channel",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/channels/{{id}}/subscribe",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "channels", "{{id}}", "subscribe"]
-            }
-          }
-        },
-        {
-          "name": "Get Channel By ID",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "http://localhost:8000/api/v1/channels/{{id}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "channels", "{{id}}"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Videos",
-      "item": [
-        {
-          "name": "Upload Video",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/upload",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "upload"]
-            },
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                { "key": "video", "type": "file" },
-                { "key": "thumbnail", "type": "file" },
-                { "key": "title", "value": "My Video", "type": "text" },
-                { "key": "description", "value": "Video description", "type": "text" }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Delete Video",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{id}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{id}}"]
-            }
-          }
-        },
-        {
-          "name": "Like Video",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{id}}/like",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{id}}", "like"]
-            }
-          }
-        },
-        {
-          "name": "Dislike Video",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{id}}/dislike",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{id}}", "dislike"]
-            }
-          }
-        },
-        {
-          "name": "Get Shareable Link",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{videoId}}/share",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{videoId}}", "share"]
-            }
-          }
-        },
-        {
-          "name": "Report Video",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{videoId}}/report",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{videoId}}", "report"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Inappropriate content\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Get My Videos",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/my-videos",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "my-videos"]
-            }
-          }
-        },
-        {
-          "name": "Watch Video",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/videos/{{videoId}}/watch",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "videos", "{{videoId}}", "watch"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Playlists",
-      "item": [
-        {
-          "name": "Create Playlist",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/playlists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "playlists"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"My Playlist\",\n  \"description\": \"Playlist for coding tutorials\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Get User Playlists",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/playlists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "playlists"]
-            }
-          }
-        },
-        {
-          "name": "Add Video to Playlist",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/playlists/{{playlistId}}/videos/{{videoId}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "playlists", "{{playlistId}}", "videos", "{{videoId}}"]
-            }
-          }
-        },
-        {
-          "name": "Remove Video from Playlist",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/playlists/{{playlistId}}/videos/{{videoId}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "playlists", "{{playlistId}}", "videos", "{{videoId}}"]
-            }
-          }
-        },
-        {
-          "name": "Delete Playlist",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/playlists/{{playlistId}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "playlists", "{{playlistId}}"]
-            }
-          }
-        }
-      ]
-    },
     {
       "name": "Authentication",
       "item": [
@@ -337,12 +13,15 @@
           "name": "Register",
           "request": {
             "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/auth/register",
+              "raw": "http://localhost:8000/api/v1/users/register",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "auth", "register"]
+              "path": ["api", "v1", "users", "register"]
             },
             "body": {
               "mode": "raw",
@@ -354,12 +33,15 @@
           "name": "Login",
           "request": {
             "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/auth/login",
+              "raw": "http://localhost:8000/api/v1/users/login",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "auth", "login"]
+              "path": ["api", "v1", "users", "login"]
             },
             "body": {
               "mode": "raw",
@@ -371,122 +53,115 @@
           "name": "Logout",
           "request": {
             "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/auth/logout",
+              "raw": "http://localhost:8000/api/v1/users/logout",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "auth", "logout"]
+              "path": ["api", "v1", "users", "logout"]
             }
           }
         }
       ]
     },
     {
-      "name": "Comments",
+      "name": "Tasks",
       "item": [
         {
-          "name": "Add Comment",
+          "name": "Create Task",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/comments/{{videoId}}",
+              "raw": "http://localhost:8000/api/v1/tasks",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "comments", "{{videoId}}"]
+              "path": ["api", "v1", "tasks"]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"text\": \"Nice video!\"\n}"
+              "raw": "{\n  \"title\": \"New Task\",\n  \"description\": \"This is a test task\",\n  \"dueDate\": \"2025-10-01\"\n}"
             }
           }
         },
         {
-          "name": "Delete Comment",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/comments/{{commentId}}",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "comments", "{{commentId}}"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "History",
-      "item": [
-        {
-          "name": "Get History",
+          "name": "Get All Tasks (with pagination & filters)",
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/history/",
+              "raw": "http://localhost:8000/api/v1/tasks?page=1&limit=10&overdue=false",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "history"]
+              "path": ["api", "v1", "tasks"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "overdue", "value": "false" }
+              ]
             }
           }
         },
         {
-          "name": "Add to History",
+          "name": "Get Single Task",
           "request": {
-            "method": "POST",
+            "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/history/add/{{videoId}}",
+              "raw": "http://localhost:8000/api/v1/tasks/{{taskId}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "history", "add", "{{videoId}}"]
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
             }
           }
         },
         {
-          "name": "Remove from History",
+          "name": "Update Task",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/v1/tasks/{{taskId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Task\",\n  \"description\": \"Updated description\",\n  \"dueDate\": \"2025-10-05\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Task",
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8000/api/v1/history/remove/{{videoId}}",
+              "raw": "http://localhost:8000/api/v1/tasks/{{taskId}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8000",
-              "path": ["api", "v1", "history", "remove", "{{videoId}}"]
-            }
-          }
-        },
-        {
-          "name": "Clear History",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-            ],
-            "url": {
-              "raw": "http://localhost:8000/api/v1/history/clear",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8000",
-              "path": ["api", "v1", "history", "clear"]
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
             }
           }
         }
@@ -495,10 +170,6 @@
   ],
   "variable": [
     { "key": "token", "value": "" },
-    { "key": "id", "value": "" },
-    { "key": "videoId", "value": "" },
-    { "key": "playlistId", "value": "" },
-    { "key": "commentId", "value": "" },
-    { "key": "type", "value": "" }
+    { "key": "taskId", "value": "" }
   ]
 }

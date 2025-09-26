@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import User from "../models/User.model.js";
 import {
@@ -6,19 +5,20 @@ import {
   generateRefreshToken,
 } from "../config/jwt.js";
 
-
 const register = async (req, res) => {
   try {
-    console.log("Incoming body:", req.body); // debug
+    console.log("Incoming body:", req.body);
     const { username, email, password } = req.body || {};
 
     if (!email || !username || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+
     const existedUser = await User.findOne({
-      $or: [{ email , username}]
+      $or: [{ email }, { username }],
     });
+
     if (existedUser) {
       return res
         .status(400)
@@ -28,13 +28,13 @@ const register = async (req, res) => {
     const newUser = await User.create({
       username,
       email: email.toLowerCase(),
-      password,
+      password, 
     });
 
-    
     return res.status(201).json({
       message: "User registered successfully",
       user: {
+        id: newUser._id,
         username: newUser.username,
         email: newUser.email,
       },
@@ -45,33 +45,35 @@ const register = async (req, res) => {
   }
 };
 
-
 const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    if (!email || !password)
+    if (!email || !password) {
       return res.status(400).json({ error: "Email and password required" });
+    }
 
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ error: "User not found" });
 
     const isMatch = await user.matchPassword(password);
-    if (!isMatch)
+    if (!isMatch) {
       return res.status(400).json({ error: "Invalid email or password" });
+    }
 
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
+    const accessToken = generateAccessToken(user._id, user.isAdmin);
+    const refreshToken = generateRefreshToken(user._id, user.isAdmin);
 
-    
     user.refreshToken = refreshToken;
     await user.save();
 
     return res.status(200).json({
       message: "Login successful",
       user: {
+        id: user._id,
         username: user.username,
         email: user.email,
+        isAdmin: user.isAdmin,
       },
       accessToken,
       refreshToken,
@@ -93,10 +95,11 @@ const logout = async (req, res) => {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.userId);
+    const user = await User.findById(decoded.id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    user.refreshToken = null; 
+   
+    user.refreshToken = null;
     await user.save();
 
     return res.status(200).json({ message: "Logout successful" });
