@@ -9,7 +9,8 @@ import {
 
 const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    console.log("Incoming body:", req.body); // debug
+    const { username, email, password } = req.body || {};
 
     if (!email || !username || !password) {
       return res.status(400).json({ error: "All fields are required" });
